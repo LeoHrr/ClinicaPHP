@@ -17,7 +17,7 @@
             <ul>
                 <li><a href="#">Home</a></li>
                 <li><a href="menuPaciente.php">Pacientes</a></li>
-                <li><a href="./Formulario.php">Doctores</a></li>
+                <li><a href="IniciarSesion.php">Doctores</a></li>
                 <li><a href="">Contacto</a></li>
             </ul>
         </nav>

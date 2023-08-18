@@ -1,21 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Iniciar Sesión</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú de Medicos</title>
 </head>
 <body>
-    <h2>Iniciar Sesión</h2>
-    <form action="login.php" method="post" onsubmit="redirigir()">
-        <label for="usuario">Usuario:</label>
-        <input type="text" name="usuario" required><br>
-        <label for="contrasena">Contraseña:</label>
-        <input type="password" name="contrasena" required><br>
-        <button type="submit">Iniciar Sesión</button>
-    </form>
-    <script>
-        function redirigir() {
-            window.location.href = "index.php"; 
-        }
-    </script>
+    <li><a href="FormMedicos.php">Agregar Medico</a></li>
+    <li><a href="">Completar Historia Clinica</a></li>
+    <li><a href="AgregarTurnos.php">Agregar Turnos</a></li>
 </body>
 </html>

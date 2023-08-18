@@ -1,24 +1,23 @@
 <?php
 include 'Conexion.php';
 
-
 $conexion = new Conexion();
+$conexion->Open();
 $conn = $conexion->getConn();
 
-
 $usuario = $_POST["usuario"];
-$contrasena = $_POST["contrasena"];
+$contraseña = $_POST["contraseña"];
 
-
-$query = "SELECT * FROM administradores WHERE usuario='$usuario' AND contrasena='$contrasena'";
+$query = "SELECT * FROM administradores WHERE usuario='$usuario' AND contraseña='$contraseña'";
 $resultado = mysqli_query($conn, $query);
 
-if (mysqli_num_rows($resultado) === 1) {
+if ($resultado && mysqli_num_rows($resultado) === 1) {
     echo "Inicio de sesión exitoso!";
+    header("Location: menuMedicos.php");
+    exit();
 } else {
-    echo "Credenciales incorrectas";
+    echo '<script>alert("Credenciales incorrectas");</script>';
 }
-
 
 $conexion->Close();
 ?>

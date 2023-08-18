@@ -16,14 +16,22 @@
 
                 public function crearMedico($dni, $nombre, $domicilio, $especialidad, $celular, $disponibilidad){
                     $this->conexionBD->Open(); // Abre la conexión
-                    
-                    $registro = mysqli_query($this->conexionBD->getConn(),"INSERT INTO medicos (dni, nombre, domicilio, especialidad, celular, disponibilidad)
-                            VALUES ('$dni','$nombre', '$domicilio', '$especialidad', '$celular' ,'$disponibilidad' )") or 
-                            die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
 
-                    $turno = mysqli_query($this->conexionBD->getConn(),"INSERT INTO turnos (especialidad, dnipaciente, medico, dia, horario)
-                            VALUES ('$especialidad','', '$nombre','$disponibilidad','' )") or 
-                            die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
+                    $verificar = mysqli_query($this->conexionBD->getConn(),"SELECT dni FROM medicos WHERE dni = '$dni'");
+                    if (mysqli_num_rows($verificar) > 0) {
+                        echo "Ya existe un médico con el mismo número de DNI.";
+                    } else {
+
+                        $registro = mysqli_query($this->conexionBD->getConn(),"INSERT INTO medicos (dni, nombre, domicilio, especialidad, celular, disponibilidad)
+                                VALUES ('$dni','$nombre', '$domicilio', '$especialidad', '$celular' ,'$disponibilidad' )") or 
+                                die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
+                                echo "Se agregó el médico correctamente";
+    
+                        $turno = mysqli_query($this->conexionBD->getConn(),"INSERT INTO turnos (especialidad, dnipaciente, medico, dia, horario)
+                                VALUES ('$especialidad','', '$nombre','$disponibilidad','' )") or 
+                                die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
+                    }
+                    
 
 
                     $this->conexionBD->Close(); // Cierra la conexión

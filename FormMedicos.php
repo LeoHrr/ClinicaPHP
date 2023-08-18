@@ -14,9 +14,19 @@
             <label for="celular">Ingrese Celular:</label>
             <input type="number" name="celular" id="celular">
             <label for="disponibilidad">Ingrese Disponibilidad:</label>
-            <input type="text" name="disponibilidad" id="disponibilidad">
-            <input type="submit" value="Agregar">
+            <select name="disponibilidad" id="disponibilidad">
+                <option value="Lunes" selected>Lunes</option>
+                <option value="Martes" >Martes</option>
+                <option value="Miercoles">Miercoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Guardia">Guardia</option>
+            </select>
+
+            <input type="submit" value="Agregar" >
         </form>
+
+        <a href="menuMedicos.php">Volver al menú anterior</a>
         <?php
         include 'Medicos.php';
 
@@ -34,6 +44,7 @@
             $medicos->crearMedico($dni, $nombre, $domicilio, $especialidad, $celular, $disponibilidad);
         }
         ?>
+
 
 
     </body>

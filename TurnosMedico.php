@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Nombre de medico</h1>
-    <form action="AgregarTurno.php" method="post">
+    <form action="ConsultarTurno.php" method="post">
 
         <select name="medico" id="">
         <?php
@@ -15,7 +15,7 @@
             $medicos->listaNombre();
         ?>
         </select>
-        <button type="submit">Agregar Turno</button>
+        <button type="submit">Consultar Turno</button>
     </form>
 </body>
 </html>
