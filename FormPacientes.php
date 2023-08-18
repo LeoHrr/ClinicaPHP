@@ -1,7 +1,7 @@
 <html>
     <body>
         <h1>Agregar pacientes</h1>
-        <form action="Pacientes.php" method=post>
+        <form action="Pacientes.php" method="post">
             <label for="dni">Ingrese DNI:</label>
             <input type="text" name="dni" id="dni">
             <label for="nombre">Ingrese Nombre:</label>

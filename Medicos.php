@@ -7,23 +7,26 @@
             include 'Conexion.php';
 
             class Medicos {
-                // private $Dni;
-                // private $Nombre;
-                // private $Domicilio;
-                // private $Especialidad;
-                // private $Celular;
-                // private $Disponibilidad;
                 private $conexionBD;
 
                 public function __construct(){
-                    // $this->Dni = $dni;
-                    // $this->Nombre = $nombre;
-                    // $this->Domicilio = $domic;
-                    // $this->Especialidad = $especialidad;
-                    // $this->Celular = $cel;
-                    // $this->Disponibilidad = $horario;
 
                     $this->conexionBD = new Conexion(); 
+                }
+
+                public function crearMedico($dni, $nombre, $domicilio, $especialidad, $celular, $disponibilidad){
+                    $this->conexionBD->Open(); // Abre la conexión
+                    
+                    $registro = mysqli_query($this->conexionBD->getConn(),"INSERT INTO medicos (dni, nombre, domicilio, especialidad, celular, disponibilidad)
+                            VALUES ('$dni','$nombre', '$domicilio', '$especialidad', '$celular' ,'$disponibilidad' )") or 
+                            die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
+
+                    $turno = mysqli_query($this->conexionBD->getConn(),"INSERT INTO turnos (especialidad, dnipaciente, medico, dia, horario)
+                            VALUES ('$especialidad','', '$nombre','$disponibilidad','' )") or 
+                            die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
+
+
+                    $this->conexionBD->Close(); // Cierra la conexión
                 }
 
                 public function listado(){
@@ -36,14 +39,49 @@
                         echo "Medico: " . $reg['nombre'] . "<br>";
                         echo "Especialidad: " . $reg['especialidad'] . "<br>";
                         echo "Disponibilidad: " . $reg['disponibilidad'] . "<br>";
+                        echo "<hr>";
                     }
             
                     $this->conexionBD->Close(); // Cierra la conexión
                 }
+
+
+                public function listaNombre(){
+                    $this->conexionBD->Open(); // Abre la conexión
+                    
+                    $registro = mysqli_query($this->conexionBD->getConn(), "SELECT nombre FROM medicos") or 
+                    die ("Problemas al listar medicos: " . mysqli_error($this->conexionBD->getConn()));
+                    
+                    while ($reg = mysqli_fetch_array($registro)){
+                        echo "<option value='" . $reg["nombre"] . "'>" . $reg["nombre"] . "</option>";
+                    }
+                    
+                    $this->conexionBD->Close(); // Cierra la conexión
+                }
+
+
+                public function verificarDisponibilidad($medicoNombre){
+                    $this->conexionBD->Open();
+    
+                    $query = "SELECT disponibilidad FROM medicos WHERE nombre = '$medicoNombre'";
+                    $result = mysqli_query($this->conexionBD->getConn(), $query);
+
+                    $disponibilidad = false;
+                if ($result && mysqli_num_rows($result) > 0) {
+                 $row = mysqli_fetch_assoc($result);
+                $disponibilidad = strpos($row['disponibilidad'], 'Disponible') !== false;
             }
 
-            $medicos = new Medicos();
-            $medicos->listado();
+            $this->conexionBD->Close();
+            return $disponibilidad;
+}
+
+                
+            }
+
+            
+
+            
         ?>
     </body>
 </html>
