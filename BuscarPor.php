@@ -6,6 +6,7 @@
     <title>Document</title>
 </head>
 <body>
+    <a href="menuPaciente.php">Atras</a>
     <h1>Buscar por:</h1>
 
     <div><a href="TurnosMedico.php">Medico</a> </div>

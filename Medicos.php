@@ -24,12 +24,12 @@
 
                         $registro = mysqli_query($this->conexionBD->getConn(),"INSERT INTO medicos (dni, nombre, domicilio, especialidad, celular, disponibilidad)
                                 VALUES ('$dni','$nombre', '$domicilio', '$especialidad', '$celular' ,'$disponibilidad' )") or 
-                                die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
+                                die ("Problemas al registrar medico: " . mysqli_error($this->conexionBD->getConn()));
                                 echo "Se agregó el médico correctamente";
     
                         $turno = mysqli_query($this->conexionBD->getConn(),"INSERT INTO turnos (especialidad, dnipaciente, medico, dia, horario)
                                 VALUES ('$especialidad','', '$nombre','$disponibilidad','' )") or 
-                                die ("Problemas al registrar paciente: " . mysqli_error($this->conexionBD->getConn()));
+                                die ("Problemas al registrar medico: " . mysqli_error($this->conexionBD->getConn()));
                     }
                     
 
@@ -70,19 +70,34 @@
 
                 public function verificarDisponibilidad($medicoNombre){
                     $this->conexionBD->Open();
-    
-                    $query = "SELECT disponibilidad FROM medicos WHERE nombre = '$medicoNombre'";
+                
+                    $query = "SELECT horario, dia, dnipaciente FROM turnos WHERE medico = '$medicoNombre'";
                     $result = mysqli_query($this->conexionBD->getConn(), $query);
-
-                    $disponibilidad = false;
-                    if ($result && mysqli_num_rows($result) > 0) {
+                
+                    if ($result) {
                         $row = mysqli_fetch_assoc($result);
-                        $disponibilidad = strpos($row['disponibilidad'], 'Disponible') !== false;
-                    }
+                        $horario = $row['horario'];
+                        $dia = $row['dia'];
+                        $dni = $row['dnipaciente'];
+                
+                        if ($horario === "" && $dni==0) {
 
-                $this->conexionBD->Close();
-                return $disponibilidad;
+                            echo "El médico $medicoNombre no tiene horarios disponibles.";
+                        } else {
+
+                            echo "El médico $medicoNombre tiene un horario disponible el proximo $dia a las $horario.";
+                            
+                        }
+                    } else {
+
+                        echo "Error al verificar la disponibilidad del médico.";
+                    }
+                
+                    $this->conexionBD->Close();
                 }
+                
+                
+                
 
                 
             }
