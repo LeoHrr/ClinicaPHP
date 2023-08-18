@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <title>Iniciar Sesión</title>
 </head>
 <body>
+    <a href="index.php">Salir</a>
     <h2>Iniciar Sesión</h2>
     <form action="login.php" method="post" >
         <label for="usuario">Usuario:</label>

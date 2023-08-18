@@ -6,6 +6,7 @@
     <title>Menú de Medicos</title>
 </head>
 <body>
+    <a href="index.php">Salir</a>
     <li><a href="FormMedicos.php">Agregar Medico</a></li>
     <li><a href="">Completar Historia Clinica</a></li>
     <li><a href="AgregarTurnos.php">Agregar Turnos</a></li>

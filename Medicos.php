@@ -75,21 +75,18 @@
                     $result = mysqli_query($this->conexionBD->getConn(), $query);
 
                     $disponibilidad = false;
-                if ($result && mysqli_num_rows($result) > 0) {
-                 $row = mysqli_fetch_assoc($result);
-                $disponibilidad = strpos($row['disponibilidad'], 'Disponible') !== false;
-            }
+                    if ($result && mysqli_num_rows($result) > 0) {
+                        $row = mysqli_fetch_assoc($result);
+                        $disponibilidad = strpos($row['disponibilidad'], 'Disponible') !== false;
+                    }
 
-            $this->conexionBD->Close();
-            return $disponibilidad;
-}
+                $this->conexionBD->Close();
+                return $disponibilidad;
+                }
 
                 
             }
-
-            
-
-            
+    
         ?>
     </body>
 </html>

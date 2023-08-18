@@ -4,16 +4,26 @@
     <title>Formulario</title>
 </head>
 <body>
+    <a href="menuMedicos.php">Menú Anterior</a>
     <h1>Formulario</h1>
     <form action="Turnos.php" method="post" id="turno">
-        <label for="nombre"> Nombre:</label>
-        <input type="text" id="nombre" name="nombre" required><br>
+        <select name="nombre" id="nombre">
+            <?php
+            include 'Medicos.php';
         
+            $medicos = new Medicos();
+            $medicos->listaNombre();
+            ?>
+        </select>
         <label for="horario">Horario:</label>
         <input type="time" id="horario" name="horario" required><br>
-        
+
         <button type="submit">Agregar</button>
     </form>
+    <?php
+        $medicos = new Medicos();
+        $medicos->listado();
+    ?>
 
     <script>
         const formulario = document.getElementById("turno");
@@ -21,9 +31,7 @@
             event.preventDefault();
             try {
                 alert("Turno agregado");
-                setTimeout(function() {
-                    history.back();
-                }, 2000);
+                formulario.submit();
             } catch (error) {
                 alert("Ocurrió un error al cargar los datos. Por favor, inténtalo nuevamente.");
             }
